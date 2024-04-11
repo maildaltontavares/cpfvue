@@ -74,7 +74,7 @@
 
 
               <div class="d-flex justify-content-center" style="font-size: 9px;" >
-                 <p>Versao 1.00.09</p>
+                 <p>Versao 1.00.11</p>
               </div>                
 
               <div class="col-9" style="margin-left: 8%;">

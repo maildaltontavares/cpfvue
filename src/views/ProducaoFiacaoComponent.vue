@@ -1898,7 +1898,7 @@
                                                         }
 
                                                     }else if(this.cdTipoMaquina=='04'){                                                    
-                                                        if( val < 40000 || val > 110000   ){                                                             
+                                                        if( val < 40000 || val > 115000   ){                                                             
                                                             return false
                                                         }else{
                                                                 return true
@@ -1913,7 +1913,7 @@
 
                                                     } else if(this.cdTipoMaquina=='06'){
                                                         
-                                                        if( val < 500 || val > 1000  ){                                                           
+                                                        if( val < 500 || val > 1200  ){                                                           
                                                             return false
                                                         }else{
                                                                 return true
