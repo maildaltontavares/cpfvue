@@ -235,6 +235,59 @@ export default {
     },
   
 
+    async apiPesquisaParamItemClasse(id, tipoMaquina , target) {
+     
+      let url; 
+      id = Number(id);
+      url = `${process.env.VUE_APP_BASE_URL}/item/itclasse/${this.$store.state.usuarioSistema.idfil}/${id}/${tipoMaquina}`
+      
+      //console.log(url)
+      //console.log("000000AAA")
+
+      await this.axios.get(url, this.apiTokenHeader())
+      .then(response => {
+
+          this.resultado = response.data;   
+          
+          if(this.resultado != '' && this.resultado != null){
+            
+       
+              if (response.data.material.descricao!= null && response.data.material.descricao != ''){
+                target.dsItem = response.data.material.descricao ;   
+               
+
+              }else{
+         
+                target.dsItem = ''; 
+                this.apiDisplayMensagem('Item Inválido para o tipo de máquina');  
+                                
+              } 
+          }else{
+
+  
+            target.dsItem = ''; 
+            this.apiDisplayMensagem('Item Inválido para o tipo de máquina');                     
+          }   
+
+      }) .catch(error => { 
+           //console.log("4444444") 
+          console.log("Erro: ", error );
+          this.haErros = true
+          this.mensagemErro = error 
+
+          this.apiDisplayMensagem(error );  
+         
+          target.dsItem = ' ' 
+          setTimeout(() => { 
+          
+              target.dsItem= ''
+              target.item = ''
+                
+          }, 2000);
+      })      
+       
+    },
+
     // Dalton - Alterada
     async apiPesquisaParam(tipo, id, target) {
      
@@ -812,6 +865,60 @@ export default {
     ,
 
 
+    async apiPesquisaItemClasse( procurarPor ,  tipoMaquina) {
+
+      //console.log('this.nomePesquisa')
+      //console.log(procurarPor)
+      //console.log(this.nomePesquisa)
+
+      if (this.nomePesquisa.length < 3) {
+        this.haErros = true
+        this.mensagemErro = "Informe um valor de pesquisa com 3 caracteres ou mais!"
+        return
+      }
+
+
+      this.msgProcessamento = "Processando"
+      this.page = 1
+      this.apiProcessamento()
+
+
+      let url;
+      if (this.nomePesquisa) {
+       
+         url = `${process.env.VUE_APP_BASE_URL}/item/itemclasse/${this.$store.state.usuarioSistema.idfil}/${procurarPor}/${tipoMaquina}` 
+       
+
+        console.log(url)
+        
+        this.resultPesquisa = []
+        this.pages = []
+        await this.axios.get(url,this.apiTokenHeader())
+          .then(response => {
+            this.resultPesquisa = response.data
+            this.msgProcessamento = ''
+
+            //console.log(this.resultPesquisa )
+
+          })
+          .catch(error => { 
+              this.mensagemErro =  'Erro ao pesquisar item.'; 
+              console.log(error.response.data);    
+              this.haErros = true 
+              this.msgProcessamento = ''
+                  
+         } )
+      }  
+
+
+
+      if (this.resultPesquisa) {
+        //this.setaPesquisa(tipo, this.resultPesquisa)  //  13062023
+        this.apiSetPages()
+      }
+    },
+
+
      ////// Alterado Dalton Tavares
      // Dalton - Alterada
     ///// adicionado os parametros pagina,direcao,ordem // revisar de onde vem
@@ -863,6 +970,7 @@ export default {
           .then(response => response.json())
           .then(response => {
             this.resultPesquisa = response
+            this.msgProcessamento = ''
           })
       }
       if (this.resultPesquisa) {

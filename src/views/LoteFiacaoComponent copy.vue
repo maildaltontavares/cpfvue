@@ -300,12 +300,12 @@
    import { required, helpers  } from '@vuelidate/validators'   
    import SimNao from '@/requires/SimNao.vue'
    import Popper from 'vue3-popper'
-   import PesquisaItemClasse from '@/requires/PesquisaItemClasse.vue';   
+   import PesquisaItem from '@/requires/PesquisaItem.vue';   
 
     export default {
 
        name: 'LoteFiacaoComponent', 
-       components: { SimNao,  Popper ,PesquisaItemClasse},
+       components: { SimNao,  Popper ,PesquisaItem},
        setup: () => (
             { v$: useValidate() }
         ),
@@ -539,26 +539,9 @@
                         //console.log('chaveCompleta')
 
                         if ((this.cdTipoMaquina==null || this.cdTipoMaquina =='' || this.cdTipoMaquina =='00') && chaveCompleta){  
-                            
-                            if  (this.loteFiacao.item!='0'   ){
-                                this.apiDisplayMensagem('Informe o tipo de máquina para validar o item.');
-                            }
-                            
-                            
                             chaveCompleta = false; 
-                            return false
-                        } else{
-                           
-                                if  (this.loteFiacao.item!='0'   ){
-                                    this.loteFiacao.item = this.loteFiacao.item.padStart(7, '0');
-                                    
-                                    const descIt = await this.apiPesquisaParamItemClasse( this.loteFiacao.item,  this.cdTipoMaquina, this.loteFiacao)
-                                    this.liber = descIt
-                                }else{
-                                    chaveCompleta = false;
-                                } 
-                                                     
-                        }
+                            return
+                        } 
 
                         //console.log(chaveCompleta)
 
@@ -566,15 +549,22 @@
                             this.loteFiacao.lote = this.loteFiacao.lote.padStart(10, '0'); 
                         }else{
                             chaveCompleta = false;
-                            return false
+                            return 
                         } 
-                       
- 
-                        if  (this.loteFiacao.dsItem=='' ||  this.loteFiacao.dsItem == null  ){
+                        //console.log(this.loteFiacao.lote)
+                        //console.log(chaveCompleta)
+
+                        if  (this.loteFiacao.item!='0'   ){
+                            this.loteFiacao.item = this.loteFiacao.item.padStart(7, '0');
+                            //const descIt = await this.apiPesquisaParam('item', this.loteFiacao.item, this.loteFiacao)  
+                            const descIt = await this.apiPesquisaParamItemClasse( this.loteFiacao.item,  this.cdTipoMaquina, this.loteFiacao)
+                            this.liber = descIt
+                        }else{
                             chaveCompleta = false;
-                        }
-                          
-                       
+                        }   
+                        //console.log(this.loteFiacao.item)
+                        //console.log(chaveCompleta)
+                   
                         //console.log(chaveCompleta)
                         return chaveCompleta;
             },            
@@ -661,11 +651,8 @@
                 this.haSucesso = false  
                 this.mensagemSucesso = ''
                 this.mensagemErro = ''     
-              
-                const resposta = await this.validaChave(); 
  
-                //if (await this.validaChave ()){   
-                if ( resposta === true  ){  
+                if (await this.validaChave ()){   
 
                         const resposta = await this.populaForm();     
 
@@ -869,11 +856,6 @@
  
                 let retornoPopForm=false;   
                 this.resultado = "";
-
-
-
-
-
                 if (await this.validaChave()){ 
 
                     let url = `${process.env.VUE_APP_BASE_URL}/lotefiacao/buscaLotePorChave`;
@@ -969,7 +951,7 @@
                                     this.loteDesabilitado=true; 
 
 
-                                 
+                                    //this.apiPesquisaParam('item', this.loteFiacao.item, this.loteFiacao)  
                               
                             
                                     retornoPopForm = true;   

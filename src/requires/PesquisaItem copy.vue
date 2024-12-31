@@ -8,9 +8,9 @@
         </div>
         <div class="modal-body" >
           <div class="mb-3">
-              <div class="col-md-12 input-group"> 
+              <div class="col-md-12 input-group">
                   <input type="text" class="form-control form-control-sm" @blur="apiPesquisaNome('item','descricao',nomePesquisa,1)" v-model.lazy="nomePesquisa" placeholder="Informe o nome do item">
-                  <button type="button" class="btn btn-primary" @click="apiPesquisaNome('item','descricao',nomePesquisa,1)"><i class="bi bi-search input-group-append"></i></button>                   
+                  <button type="button" class="btn btn-primary" @click="apiPesquisaNome('item','descricao',nomePesquisa,1)"><i class="bi bi-search input-group-append"></i></button>
               </div>
           </div>
           <div class="mb-1" style="height: 60%;  overflow-y: auto;">
@@ -79,7 +79,6 @@
     export default {
         name: 'PesquisaItem',
         mixins: [ApiMixin],
-        
         data: () => ({
             haErros : false,
             mensagemErro: '',

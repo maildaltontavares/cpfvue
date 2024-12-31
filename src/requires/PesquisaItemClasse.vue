@@ -8,9 +8,11 @@
         </div>
         <div class="modal-body" >
           <div class="mb-3">
-              <div class="col-md-12 input-group"> 
-                  <input type="text" class="form-control form-control-sm" @blur="apiPesquisaNome('item','descricao',nomePesquisa,1)" v-model.lazy="nomePesquisa" placeholder="Informe o nome do item">
-                  <button type="button" class="btn btn-primary" @click="apiPesquisaNome('item','descricao',nomePesquisa,1)"><i class="bi bi-search input-group-append"></i></button>                   
+              <div class="col-md-12 input-group">  
+                {{this.tipoMaquina}}
+                  <input type="text" class="form-control form-control-sm" @blur="apiPesquisaItemClasse( nomePesquisa,this.tipoMaquina)" v-model.lazy="nomePesquisa" placeholder="Informe o nome do item">
+                  <button type="button" class="btn btn-primary" @click="apiPesquisaItemClasse( nomePesquisa,this.tipoMaquina)"><i class="bi bi-search input-group-append"></i></button>                  
+  
               </div>
           </div>
           <div class="mb-1" style="height: 60%;  overflow-y: auto;">
@@ -77,12 +79,18 @@
     })
 
     export default {
-        name: 'PesquisaItem',
+        name: 'PesquisaItemClasse',
         mixins: [ApiMixin],
-        
+        props: {
+            tipoMaquinaProps : {
+            type: String,
+            required: true,
+          }
+        },
         data: () => ({
             haErros : false,
             mensagemErro: '',
+            tipoMaquina:'',
         }),
         methods:{
             setaPesquisa(evento) {
@@ -98,6 +106,12 @@
                 $('#modalPesquisaItem').modal('hide');
             },
         },
+        created(){
+           this.tipoMaquina =  this.tipoMaquinaProps;
+        },
+        updated(){
+           this.tipoMaquina =  this.tipoMaquinaProps;
+        },        
         watch: {
             haErros(newValue) {
                 if(newValue) {

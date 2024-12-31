@@ -106,6 +106,8 @@
     ),
     data: () => ({
       idfil: '01',
+      //codigo: '17071',
+      //senha: '017071',
       codigo: '',
       senha: '',
       erros: '',

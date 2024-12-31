@@ -16,7 +16,7 @@
 
                         <div class="row col-md-12"  >  
                             <div class=" text-start">
-                                <label for="codTipoMaquina" class="col-form-label  label_cabecalho">Código</label>
+                                <label for="codTipoMaquina" class="col-form-label  label_cabecalho">Código</label><br>
                                 <div class="input-group">
                                     <div class="col-md-1">
                                         <input   id="codTipoMaquina" ref="codigoTipoMaquina" 

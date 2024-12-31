@@ -1913,7 +1913,7 @@
 
                                                     } else if(this.cdTipoMaquina=='06'){
                                                         
-                                                        if( val < 500 || val > 2000  ){                                                           
+                                                        if( val < 500 || val > 1200  ){                                                           
                                                             return false
                                                         }else{
                                                                 return true
@@ -2639,7 +2639,7 @@
                 if  (!(this.producaoFiacao.item==null || this.producaoFiacao.item=='')){
                     this.producaoFiacao.item= this.producaoFiacao.item.padStart(7, '0'); 
                 }                
-                this.apiPesquisaParamItemClasse( this.producaoFiacao.item, this.cdTipoMaquina, this.producaoFiacao)
+                this.apiPesquisaParam('item', this.producaoFiacao.item, this.producaoFiacao)
                 
                 
                 const resposta = await this.buscaFichaTecnica();       
@@ -2707,8 +2707,8 @@
                                             this.apiDisplayMensagem('Item nao pertence a este tipo de maquina.') 
                                          }                                         
 
-                                         //console.log('this.tipoMaquinaItem ' )
-                                         //console.log(this.tipoMaquinaItem )
+                                         console.log('this.tipoMaquinaItem ' )
+                                         console.log(this.tipoMaquinaItem )
 
                                     }     
 

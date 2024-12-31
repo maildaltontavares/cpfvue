@@ -545,7 +545,7 @@
                         this.habilitaNumSerie=true; 
                         this.habilitaLocalFisico=true; 
                         this.habilitaMqSSM=false; 
-                        this.habilitaLado=false; 
+                        this.habilitaLado=true; 
                         this.habilitaHrTrabDia=false;  
                     }
 
